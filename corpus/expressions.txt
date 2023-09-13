@@ -7,10 +7,107 @@ def a = x - y - z
 ---
 
 (source_file
-  (binary
-    lhs: (binary
+  (val_bind
+    bindto: (name)
+    val: (binary
+      lhs: (binary
+             lhs: (name)
+             op: (symbol)
+             rhs: (name))
+      op: (symbol)
+      rhs: (name))))
+
+===
+multiplication is left associative
+===
+
+def a = x * y * z
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (binary
+      lhs: (binary
+             lhs: (name)
+             op: (symbol)
+             rhs: (name))
+      op: (symbol)
+      rhs: (name))))
+
+===
+multiplication has higher precedence that addition
+===
+
+def a = x + y * z
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (binary
            lhs: (name)
            op: (symbol)
-           rhs: (name))
-    op: (symbol)
-    rhs: (name)))
+           rhs: (binary
+                  lhs: (name)
+                  op: (symbol)
+                  rhs: (name)))))
+
+
+===
+parens work
+===
+
+def a = (x + y) * z
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (binary
+      lhs: (binary
+             lhs: (name)
+             op: (symbol)
+             rhs: (name))
+      op: (symbol)
+      rhs: (name))))
+
+===
+function calls are left associative
+===
+
+def a = x y z
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (call
+           func: (call
+                   func: (name)
+                   arg: (name))
+           arg: (name))))
+
+===
+function calls have higher precedence than multiplication
+===
+
+def a = x y * z w
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (binary
+           lhs: (call
+                  func: (name)
+                  arg: (name))
+           op: (symbol)
+           rhs: (call
+                  func: (name)
+                  arg: (name)))))

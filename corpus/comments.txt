@@ -11,7 +11,9 @@ def a = c -- this shouldn't be parsed either
 (source_file
   (comment)
   (comment)
-  (name)
+  (val_bind
+    bindto: (name)
+    val: (name))
   (comment))
 
 ===
@@ -24,8 +26,10 @@ y
 ---
 
 (source_file
-  (binary
-    lhs: (name)
-    op: (symbol)
-    (comment)
-    rhs: (name)))
+  (val_bind
+    bindto: (name)
+    val: (binary
+           lhs: (name)
+           op: (symbol)
+           (comment)
+           rhs: (name))))

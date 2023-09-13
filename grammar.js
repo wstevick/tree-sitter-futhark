@@ -10,7 +10,11 @@ module.exports = grammar({
     ],
 
     rules: {
-        source_file: $ => seq('def', 'a', '=', $._exp),
+        source_file: $ => repeat($._dec),
+        
+        _dec: $ => choice($.val_bind),
+
+        val_bind: $ => seq('def', field('bindto', $.name), '=', field('val', $._exp)),
 
         _atom: $ => choice($.name, seq('(', $._exp, ')')),
         _exp: $ => choice($._atom, $.call, $.binary),
