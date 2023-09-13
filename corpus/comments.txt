@@ -1,0 +1,31 @@
+===
+Comments parsed correctly
+===
+
+-- this shouldn't be parsed
+-- def i = b
+def a = c -- this shouldn't be parsed either
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (name)
+  (comment))
+
+===
+Comments allowed in expressions
+===
+
+def a = x + -- a comment
+y
+
+---
+
+(source_file
+  (binary
+    lhs: (name)
+    op: (symbol)
+    (comment)
+    rhs: (name)))

@@ -1,0 +1,16 @@
+===
+addition is left associative
+===
+
+def a = x - y - z
+
+---
+
+(source_file
+  (binary
+    lhs: (binary
+           lhs: (name)
+           op: (symbol)
+           rhs: (name))
+    op: (symbol)
+    rhs: (name)))
