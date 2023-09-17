@@ -87,6 +87,10 @@
         {
           "type": "SYMBOL",
           "name": "binary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "neg"
         }
       ]
     },
@@ -120,7 +124,7 @@
       "members": [
         {
           "type": "PREC_LEFT",
-          "value": "addition",
+          "value": "add",
           "content": {
             "type": "SEQ",
             "members": [
@@ -167,7 +171,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "multiplication",
+          "value": "mult",
           "content": {
             "type": "SEQ",
             "members": [
@@ -214,6 +218,27 @@
         }
       ]
     },
+    "neg": {
+      "type": "PREC",
+      "value": "neg",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "-"
+          },
+          {
+            "type": "FIELD",
+            "name": "negated",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_exp"
+            }
+          }
+        ]
+      }
+    },
     "name": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_']*"
@@ -246,11 +271,15 @@
       },
       {
         "type": "STRING",
-        "value": "multiplication"
+        "value": "neg"
       },
       {
         "type": "STRING",
-        "value": "addition"
+        "value": "mult"
+      },
+      {
+        "type": "STRING",
+        "value": "add"
       }
     ]
   ],

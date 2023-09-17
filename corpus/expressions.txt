@@ -111,3 +111,50 @@ def a = x y * z w
            rhs: (call
                   func: (name)
                   arg: (name)))))
+
+===
+call and neg don't break subtraction
+===
+
+def a = x -y
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (binary
+           lhs: (name)
+           op: (symbol)
+           rhs: (name))))
+
+===
+neg binds after call
+===
+
+def a = - x y
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (neg
+           negated: (call
+                      func: (name)
+                      arg: (name)))))
+
+===
+neg binds before mul
+===
+
+def a = -x * y
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (neg
+           negated: (binary
+                      lhs: (name)
+                      op: (symbol)
+                      rhs: (name)))))

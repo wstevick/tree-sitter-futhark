@@ -6,7 +6,7 @@ module.exports = grammar({
     word: $ => $.name,
 
     precedences: $ => [
-        ['call', 'multiplication', 'addition'],
+        ['call', 'neg', 'mult', 'add'],
     ],
 
     rules: {
@@ -17,13 +17,14 @@ module.exports = grammar({
         val_bind: $ => seq('def', field('bindto', $.name), '=', field('val', $._exp)),
 
         _atom: $ => choice($.name, seq('(', $._exp, ')')),
-        _exp: $ => choice($._atom, $.call, $.binary),
+        _exp: $ => choice($._atom, $.call, $.binary, $.neg),
 
         call: $ => prec.left('call', seq(field('func', $._exp), field('arg', $._exp))),
         binary: $ => {
+            // a "level" represents a group of operators with the same precedence
             const levels = [
-                ['left', 'addition', ['+', '-']],
-                ['left', 'multiplication', ['*', '/']],
+                ['left', 'add', ['+', '-']],
+                ['left', 'mult', ['*', '/']],
             ];
             const rules = levels.map(level => {
                 const assoc = level[0];
@@ -36,6 +37,7 @@ module.exports = grammar({
             });
             return choice(...rules);
         },
+        neg: $ => prec('neg', seq('-', field('negated', $._exp))),
 
         name: $ => /[a-zA-Z_][a-zA-Z0-9_']*/,
         symbol: $ => /[+\-*\/%=!><|%^][+\-*\/%=!><|%^.]*/,
