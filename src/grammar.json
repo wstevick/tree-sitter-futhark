@@ -82,7 +82,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "call"
+          "name": "apply"
         },
         {
           "type": "SYMBOL",
@@ -94,30 +94,29 @@
         }
       ]
     },
-    "call": {
-      "type": "PREC_LEFT",
-      "value": "call",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "func",
+    "apply": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "func",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_atom"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "args",
+          "content": {
+            "type": "REPEAT1",
             "content": {
               "type": "SYMBOL",
-              "name": "_exp"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "arg",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_exp"
+              "name": "_atom"
             }
           }
-        ]
-      }
+        }
+      ]
     },
     "binary": {
       "type": "CHOICE",
@@ -267,7 +266,7 @@
     [
       {
         "type": "STRING",
-        "value": "call"
+        "value": "apply"
       },
       {
         "type": "STRING",

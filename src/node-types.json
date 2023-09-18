@@ -1,5 +1,71 @@
 [
   {
+    "type": "apply",
+    "named": true,
+    "fields": {
+      "args": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "apply",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "neg",
+            "named": true
+          }
+        ]
+      },
+      "func": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "apply",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "neg",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "binary",
     "named": true,
     "fields": {
@@ -16,15 +82,19 @@
             "named": false
           },
           {
+            "type": "apply",
+            "named": true
+          },
+          {
             "type": "binary",
             "named": true
           },
           {
-            "type": "call",
+            "type": "name",
             "named": true
           },
           {
-            "type": "name",
+            "type": "neg",
             "named": true
           }
         ]
@@ -52,15 +122,19 @@
             "named": false
           },
           {
+            "type": "apply",
+            "named": true
+          },
+          {
             "type": "binary",
             "named": true
           },
           {
-            "type": "call",
+            "type": "name",
             "named": true
           },
           {
-            "type": "name",
+            "type": "neg",
             "named": true
           }
         ]
@@ -68,10 +142,10 @@
     }
   },
   {
-    "type": "call",
+    "type": "neg",
     "named": true,
     "fields": {
-      "arg": {
+      "negated": {
         "multiple": true,
         "required": true,
         "types": [
@@ -84,41 +158,19 @@
             "named": false
           },
           {
-            "type": "binary",
+            "type": "apply",
             "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "name",
-            "named": true
-          }
-        ]
-      },
-      "func": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
           },
           {
             "type": "binary",
             "named": true
           },
           {
-            "type": "call",
+            "type": "name",
             "named": true
           },
           {
-            "type": "name",
+            "type": "neg",
             "named": true
           }
         ]
@@ -167,15 +219,19 @@
             "named": false
           },
           {
+            "type": "apply",
+            "named": true
+          },
+          {
             "type": "binary",
             "named": true
           },
           {
-            "type": "call",
+            "type": "name",
             "named": true
           },
           {
-            "type": "name",
+            "type": "neg",
             "named": true
           }
         ]
@@ -188,6 +244,10 @@
   },
   {
     "type": ")",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {

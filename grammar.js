@@ -6,7 +6,7 @@ module.exports = grammar({
     word: $ => $.name,
 
     precedences: $ => [
-        ['call', 'neg', 'mult', 'add'],
+        ['apply', 'neg', 'mult', 'add'],
     ],
 
     rules: {
@@ -17,9 +17,10 @@ module.exports = grammar({
         val_bind: $ => seq('def', field('bindto', $.name), '=', field('val', $._exp)),
 
         _atom: $ => choice($.name, seq('(', $._exp, ')')),
-        _exp: $ => choice($._atom, $.call, $.binary, $.neg),
+        _exp: $ => choice($._atom, $.apply, $.binary, $.neg),
 
-        call: $ => prec.left('call', seq(field('func', $._exp), field('arg', $._exp))),
+        apply: $ => seq(field('func', $._atom), field('args', repeat1($._atom))),
+
         binary: $ => {
             // a "level" represents a group of operators with the same precedence
             const levels = [

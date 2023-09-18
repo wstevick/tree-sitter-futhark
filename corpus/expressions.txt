@@ -76,7 +76,7 @@ def a = (x + y) * z
       rhs: (name))))
 
 ===
-function calls are left associative
+function applys work as expected
 ===
 
 def a = x y z
@@ -86,14 +86,13 @@ def a = x y z
 (source_file
   (val_bind
     bindto: (name)
-    val: (call
-           func: (call
-                   func: (name)
-                   arg: (name))
-           arg: (name))))
+    val: (apply
+           func: (name)
+           args: (name)
+           args: (name))))
 
 ===
-function calls have higher precedence than multiplication
+function applys have higher precedence than multiplication
 ===
 
 def a = x y * z w
@@ -104,16 +103,16 @@ def a = x y * z w
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (call
+           lhs: (apply
                   func: (name)
-                  arg: (name))
+                  args: (name))
            op: (symbol)
-           rhs: (call
+           rhs: (apply
                   func: (name)
-                  arg: (name)))))
+                  args: (name)))))
 
 ===
-call and neg don't break subtraction
+apply and neg don't break subtraction
 ===
 
 def a = x -y
@@ -129,7 +128,7 @@ def a = x -y
            rhs: (name))))
 
 ===
-neg binds after call
+neg binds after apply
 ===
 
 def a = - x y
@@ -140,9 +139,9 @@ def a = - x y
   (val_bind
     bindto: (name)
     val: (neg
-           negated: (call
+           negated: (apply
                       func: (name)
-                      arg: (name)))))
+                      args: (name)))))
 
 ===
 neg binds before mul
