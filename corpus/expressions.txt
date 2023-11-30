@@ -149,11 +149,32 @@ neg binds before mul
 
 def a = -x * y
 
+---
+
 (source_file
   (val_bind
     bindto: (name)
-    val: (neg
-           negated: (binary
-                      lhs: (name)
-                      op: (symbol)
-                      rhs: (name)))))
+    val: (binary
+           lhs: (neg
+                  negated: (name))
+           op: (symbol)
+           rhs: (name))))
+
+===
+if works
+===
+
+def x = if a then b else c + d
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (if
+           cond: (name)
+           then: (name)
+           else: (binary
+                   lhs: (name)
+                   op: (symbol)
+                   rhs: (name)))))

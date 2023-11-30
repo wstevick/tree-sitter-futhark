@@ -24,6 +24,10 @@
             "named": true
           },
           {
+            "type": "if",
+            "named": true
+          },
+          {
             "type": "name",
             "named": true
           },
@@ -51,6 +55,10 @@
           },
           {
             "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
             "named": true
           },
           {
@@ -87,6 +95,10 @@
           },
           {
             "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
             "named": true
           },
           {
@@ -130,6 +142,118 @@
             "named": true
           },
           {
+            "type": "if",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "neg",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "if",
+    "named": true,
+    "fields": {
+      "cond": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "apply",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "neg",
+            "named": true
+          }
+        ]
+      },
+      "else": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "apply",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "neg",
+            "named": true
+          }
+        ]
+      },
+      "then": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "apply",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
+            "named": true
+          },
+          {
             "type": "name",
             "named": true
           },
@@ -163,6 +287,10 @@
           },
           {
             "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
             "named": true
           },
           {
@@ -227,6 +355,10 @@
             "named": true
           },
           {
+            "type": "if",
+            "named": true
+          },
+          {
             "type": "name",
             "named": true
           },
@@ -263,11 +395,23 @@
     "named": false
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "name",
     "named": true
   },
   {
     "type": "symbol",
     "named": true
+  },
+  {
+    "type": "then",
+    "named": false
   }
 ]

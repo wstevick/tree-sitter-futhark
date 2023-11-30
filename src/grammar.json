@@ -91,6 +91,10 @@
         {
           "type": "SYMBOL",
           "name": "neg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if"
         }
       ]
     },
@@ -238,6 +242,51 @@
         ]
       }
     },
+    "if": {
+      "type": "PREC",
+      "value": "if",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "FIELD",
+            "name": "cond",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_exp"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "then"
+          },
+          {
+            "type": "FIELD",
+            "name": "then",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_exp"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "else"
+          },
+          {
+            "type": "FIELD",
+            "name": "else",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_exp"
+            }
+          }
+        ]
+      }
+    },
     "name": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_']*"
@@ -266,10 +315,6 @@
     [
       {
         "type": "STRING",
-        "value": "apply"
-      },
-      {
-        "type": "STRING",
         "value": "neg"
       },
       {
@@ -279,6 +324,10 @@
       {
         "type": "STRING",
         "value": "add"
+      },
+      {
+        "type": "STRING",
+        "value": "if"
       }
     ]
   ],

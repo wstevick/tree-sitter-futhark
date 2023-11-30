@@ -6,7 +6,7 @@ module.exports = grammar({
     word: $ => $.name,
 
     precedences: $ => [
-        ['apply', 'neg', 'mult', 'add'],
+        ['neg', 'mult', 'add', 'if'],
     ],
 
     rules: {
@@ -17,7 +17,7 @@ module.exports = grammar({
         val_bind: $ => seq('def', field('bindto', $.name), '=', field('val', $._exp)),
 
         _atom: $ => choice($.name, seq('(', $._exp, ')')),
-        _exp: $ => choice($._atom, $.apply, $.binary, $.neg),
+        _exp: $ => choice($._atom, $.apply, $.binary, $.neg, $.if),
 
         apply: $ => seq(field('func', $._atom), field('args', repeat1($._atom))),
 
@@ -38,7 +38,10 @@ module.exports = grammar({
             });
             return choice(...rules);
         },
+
         neg: $ => prec('neg', seq('-', field('negated', $._exp))),
+
+        if: $ => prec('if', seq('if', field('cond', $._exp), 'then', field('then', $._exp), 'else', field('else', $._exp))),
 
         name: $ => /[a-zA-Z_][a-zA-Z0-9_']*/,
         symbol: $ => /[+\-*\/%=!><|%^][+\-*\/%=!><|%^.]*/,
