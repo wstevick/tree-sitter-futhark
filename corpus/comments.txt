@@ -30,6 +30,6 @@ y
     bindto: (name)
     val: (binary
            lhs: (name)
-           op: (symbol)
+           op: (qualsymbol)
            (comment)
            rhs: (name))))

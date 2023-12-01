@@ -116,7 +116,7 @@
         "required": true,
         "types": [
           {
-            "type": "symbol",
+            "type": "qualsymbol",
             "named": true
           }
         ]
@@ -407,7 +407,7 @@
     "named": true
   },
   {
-    "type": "symbol",
+    "type": "qualsymbol",
     "named": true
   },
   {

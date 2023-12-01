@@ -10,12 +10,12 @@ def a = x - y - z
   (val_bind
     bindto: (name)
     val: (binary
-      lhs: (binary
-             lhs: (name)
-             op: (symbol)
-             rhs: (name))
-      op: (symbol)
-      rhs: (name))))
+           lhs: (binary
+                  lhs: (name)
+                  op: (qualsymbol)
+                  rhs: (name))
+           op: (qualsymbol)
+           rhs: (name))))
 
 ===
 multiplication is left associative
@@ -29,12 +29,12 @@ def a = x * y * z
   (val_bind
     bindto: (name)
     val: (binary
-      lhs: (binary
-             lhs: (name)
-             op: (symbol)
-             rhs: (name))
-      op: (symbol)
-      rhs: (name))))
+           lhs: (binary
+                  lhs: (name)
+                  op: (qualsymbol)
+                  rhs: (name))
+           op: (qualsymbol)
+           rhs: (name))))
 
 ===
 multiplication has higher precedence that addition
@@ -49,10 +49,10 @@ def a = x + y * z
     bindto: (name)
     val: (binary
            lhs: (name)
-           op: (symbol)
+           op: (qualsymbol)
            rhs: (binary
                   lhs: (name)
-                  op: (symbol)
+                  op: (qualsymbol)
                   rhs: (name)))))
 
 
@@ -68,12 +68,12 @@ def a = (x + y) * z
   (val_bind
     bindto: (name)
     val: (binary
-      lhs: (binary
-             lhs: (name)
-             op: (symbol)
-             rhs: (name))
-      op: (symbol)
-      rhs: (name))))
+           lhs: (binary
+                  lhs: (name)
+                  op: (qualsymbol)
+                  rhs: (name))
+           op: (qualsymbol)
+           rhs: (name))))
 
 ===
 function applys work as expected
@@ -106,7 +106,7 @@ def a = x y * z w
            lhs: (apply
                   func: (name)
                   args: (name))
-           op: (symbol)
+           op: (qualsymbol)
            rhs: (apply
                   func: (name)
                   args: (name)))))
@@ -124,7 +124,7 @@ def a = x -y
     bindto: (name)
     val: (binary
            lhs: (name)
-           op: (symbol)
+           op: (qualsymbol)
            rhs: (name))))
 
 ===
@@ -157,7 +157,7 @@ def a = -x * y
     val: (binary
            lhs: (neg
                   negated: (name))
-           op: (symbol)
+           op: (qualsymbol)
            rhs: (name))))
 
 ===
@@ -176,5 +176,21 @@ def x = if a then b else c + d
            then: (name)
            else: (binary
                    lhs: (name)
-                   op: (symbol)
+                   op: (qualsymbol)
                    rhs: (name)))))
+
+===
+qualified symbols parse correctly
+===
+
+def x = x a.b.c.+ y
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (binary
+           lhs: (name)
+           op: (qualsymbol)
+           rhs: (name))))

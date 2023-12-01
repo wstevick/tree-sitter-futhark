@@ -1,4 +1,13 @@
-export default grammar({
+const NAME = /[a-zA-Z_][a-zA-Z0-9_']*/;
+const SYMSTARTCHAR = /[+\-*\/%=!><|%^]/;
+const SYMCHAR = choice(SYMSTARTCHAR, ".");
+const SYMBOL = seq(SYMCHAR, repeat(SYMSTARTCHAR));
+const QUALS = repeat(seq(NAME, "."));
+const QUALNAME = seq(QUALS, NAME);
+const BACKTICKED = seq("`", QUALNAME, "`");
+const QUALSYMBOL = choice(seq(QUALS, SYMBOL), BACKTICKED);
+
+module.exports = grammar({
   name: "futhark",
 
   extras: ($, original) => [...original, $.comment],
@@ -14,7 +23,8 @@ export default grammar({
 
     _dec: ($) => choice($.val_bind),
 
-    val_bind: ($) => seq("def", field("bindto", $.name), "=", field("val", $._exp)),
+    val_bind: ($) =>
+      seq("def", field("bindto", $.name), "=", field("val", $._exp)),
 
     _atom: ($) => choice($.name, seq("(", $._exp, ")")),
     _exp: ($) => choice($._atom, $.apply, $.binary, $.neg, $.if),
@@ -35,9 +45,9 @@ export default grammar({
           precName,
           seq(
             field("lhs", $._exp),
-            field("op", alias(choice(...ops), $.symbol)),
-            field("rhs", $._exp)
-          )
+            field("op", alias(token(seq(QUALS, choice(...ops))), $.qualsymbol)),
+            field("rhs", $._exp),
+          ),
         );
       });
       return choice(...rules);
@@ -45,20 +55,23 @@ export default grammar({
 
     neg: ($) => prec("neg", seq("-", field("negated", $._exp))),
 
-    if: ($) => prec(
-      "if",
-      seq(
+    if: ($) =>
+      prec(
         "if",
-        field("cond", $._exp),
-        "then",
-        field("then", $._exp),
-        "else",
-        field("else", $._exp)
-      )
-    ),
+        seq(
+          "if",
+          field("cond", $._exp),
+          "then",
+          field("then", $._exp),
+          "else",
+          field("else", $._exp),
+        ),
+      ),
 
-    name: () => /[a-zA-Z_][a-zA-Z0-9_']*/,
-    symbol: () => /[+\-*\/%=!><|%^][+\-*\/%=!><|%^.]*/,
+    name: () => token(NAME),
+    symbol: () => token(SYMBOL),
+    qualname: () => token(QUALNAME),
+    qualsymbol: () => token(QUALSYMBOL),
 
     comment: () => /--.*\n/,
   },
