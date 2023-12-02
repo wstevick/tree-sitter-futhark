@@ -1,0 +1,29 @@
+===
+let and def both produce val_bind
+===
+
+let x = a
+def x = a
+
+---
+
+(source_file
+  (val_bind
+    bindto: (name)
+    val: (name))
+  (val_bind
+    bindto: (name)
+    val: (name)))
+
+===
+entry produces entry_point
+===
+
+entry x = a
+
+---
+
+(source_file
+  (entry_point
+    bindto: (name)
+    val: (name)))

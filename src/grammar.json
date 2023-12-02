@@ -15,6 +15,10 @@
         {
           "type": "SYMBOL",
           "name": "val_bind"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "entry_point"
         }
       ]
     },
@@ -22,9 +26,40 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "def"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "def"
+            },
+            {
+              "type": "STRING",
+              "value": "let"
+            }
+          ]
         },
+        {
+          "type": "SYMBOL",
+          "name": "_simple_bind"
+        }
+      ]
+    },
+    "entry_point": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "entry"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_simple_bind"
+        }
+      ]
+    },
+    "_simple_bind": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "FIELD",
           "name": "bindto",

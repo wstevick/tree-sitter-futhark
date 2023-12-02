@@ -21,10 +21,12 @@ module.exports = grammar({
   rules: {
     source_file: ($) => repeat($._dec),
 
-    _dec: ($) => choice($.val_bind),
+    _dec: ($) => choice($.val_bind, $.entry_point),
 
-    val_bind: ($) =>
-      seq("def", field("bindto", $.name), "=", field("val", $._exp)),
+    val_bind: ($) => seq(choice("def", "let"), $._simple_bind),
+    entry_point: ($) => seq("entry", $._simple_bind),
+    _simple_bind: ($) =>
+      seq(field("bindto", $.name), "=", field("val", $._exp)),
 
     _atom: ($) => choice($.name, seq("(", $._exp, ")")),
     _exp: ($) => choice($._atom, $.apply, $.binary, $.neg, $.if),

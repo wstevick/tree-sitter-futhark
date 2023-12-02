@@ -158,6 +158,56 @@
     }
   },
   {
+    "type": "entry_point",
+    "named": true,
+    "fields": {
+      "bindto": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "val": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "apply",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "if",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "neg",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "if",
     "named": true,
     "fields": {
@@ -314,6 +364,10 @@
       "required": false,
       "types": [
         {
+          "type": "entry_point",
+          "named": true
+        },
+        {
           "type": "val_bind",
           "named": true
         }
@@ -399,7 +453,15 @@
     "named": false
   },
   {
+    "type": "entry",
+    "named": false
+  },
+  {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "let",
     "named": false
   },
   {
