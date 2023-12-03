@@ -31,7 +31,7 @@ module.exports = grammar({
     _atom: ($) => choice($.name, seq("(", $._exp, ")")),
     _exp: ($) => choice($._atom, $.apply, $.binary, $.neg, $.if),
 
-    apply: ($) => seq($._atom, repeat1($._atom)),
+    apply: ($) => seq(choice($._atom, $.apply), $._atom),
 
     binary: ($) => {
       // a "level" represents a group of operators with the same precedence

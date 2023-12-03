@@ -87,12 +87,13 @@ def a = x y z
   (val_bind
     bindto: (name)
     val: (apply
-           (name)
-           (name)
+           (apply
+             (name)
+             (name))
            (name))))
 
 ===
-function applys have higher precedence than multiplication
+function applications have higher precedence than multiplication
 ===
 
 def a = x y * z w
