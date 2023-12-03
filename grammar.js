@@ -10,12 +10,12 @@ const QUALSYMBOL = choice(seq(QUALS, SYMBOL), BACKTICKED);
 module.exports = grammar({
   name: "futhark",
 
-  extras: ($, original) => [...original, $.comment],
+  extras: ($, original) => [...original, $._comment],
 
   word: ($) => $.name,
 
   precedences: () => [
-    ["neg", "mult", "add", "if"],
+    ["neg", "mult", "add", "trailing_exp"],
   ],
 
   rules: {
@@ -31,7 +31,7 @@ module.exports = grammar({
     _atom: ($) => choice($.name, seq("(", $._exp, ")")),
     _exp: ($) => choice($._atom, $.apply, $.binary, $.neg, $.if),
 
-    apply: ($) => seq(field("func", $._atom), field("args", repeat1($._atom))),
+    apply: ($) => seq($._atom, repeat1($._atom)),
 
     binary: ($) => {
       // a "level" represents a group of operators with the same precedence
@@ -46,27 +46,27 @@ module.exports = grammar({
         return prec[assoc](
           precName,
           seq(
-            field("lhs", $._exp),
-            field("op", alias(token(seq(QUALS, choice(...ops))), $.qualsymbol)),
-            field("rhs", $._exp),
+            $._exp,
+            alias(token(seq(QUALS, choice(...ops))), $.qualsymbol),
+            $._exp,
           ),
         );
       });
       return choice(...rules);
     },
 
-    neg: ($) => prec("neg", seq("-", field("negated", $._exp))),
+    neg: ($) => prec("neg", seq("-", $._exp)),
 
     if: ($) =>
       prec(
-        "if",
+        "trailing_exp",
         seq(
           "if",
-          field("cond", $._exp),
+          $._exp,
           "then",
-          field("then", $._exp),
+          $._exp,
           "else",
-          field("else", $._exp),
+          $._exp,
         ),
       ),
 
@@ -75,6 +75,6 @@ module.exports = grammar({
     qualname: () => token(QUALNAME),
     qualsymbol: () => token(QUALSYMBOL),
 
-    comment: () => /--.*\n/,
+    _comment: () => /--.*\n/,
   },
 });

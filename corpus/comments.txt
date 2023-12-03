@@ -9,12 +9,9 @@ def a = c -- this shouldn't be parsed either
 ---
 
 (source_file
-  (comment)
-  (comment)
   (val_bind
     bindto: (name)
-    val: (name))
-  (comment))
+    val: (name)))
 
 ===
 Comments allowed in expressions
@@ -29,7 +26,6 @@ y
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (name)
-           op: (qualsymbol)
-           (comment)
-           rhs: (name))))
+           (name)
+           (qualsymbol)
+           (name))))

@@ -10,12 +10,12 @@ def a = x - y - z
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (binary
-                  lhs: (name)
-                  op: (qualsymbol)
-                  rhs: (name))
-           op: (qualsymbol)
-           rhs: (name))))
+           (binary
+             (name)
+             (qualsymbol)
+             (name))
+           (qualsymbol)
+           (name))))
 
 ===
 multiplication is left associative
@@ -29,12 +29,12 @@ def a = x * y * z
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (binary
-                  lhs: (name)
-                  op: (qualsymbol)
-                  rhs: (name))
-           op: (qualsymbol)
-           rhs: (name))))
+           (binary
+             (name)
+             (qualsymbol)
+             (name))
+           (qualsymbol)
+           (name))))
 
 ===
 multiplication has higher precedence that addition
@@ -48,12 +48,12 @@ def a = x + y * z
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (name)
-           op: (qualsymbol)
-           rhs: (binary
-                  lhs: (name)
-                  op: (qualsymbol)
-                  rhs: (name)))))
+           (name)
+           (qualsymbol)
+           (binary
+             (name)
+             (qualsymbol)
+             (name)))))
 
 
 ===
@@ -68,12 +68,12 @@ def a = (x + y) * z
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (binary
-                  lhs: (name)
-                  op: (qualsymbol)
-                  rhs: (name))
-           op: (qualsymbol)
-           rhs: (name))))
+           (binary
+             (name)
+             (qualsymbol)
+             (name))
+           (qualsymbol)
+           (name))))
 
 ===
 function applys work as expected
@@ -87,9 +87,9 @@ def a = x y z
   (val_bind
     bindto: (name)
     val: (apply
-           func: (name)
-           args: (name)
-           args: (name))))
+           (name)
+           (name)
+           (name))))
 
 ===
 function applys have higher precedence than multiplication
@@ -103,13 +103,13 @@ def a = x y * z w
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (apply
-                  func: (name)
-                  args: (name))
-           op: (qualsymbol)
-           rhs: (apply
-                  func: (name)
-                  args: (name)))))
+           (apply
+             (name)
+             (name))
+           (qualsymbol)
+           (apply
+             (name)
+             (name)))))
 
 ===
 apply and neg don't break subtraction
@@ -123,9 +123,9 @@ def a = x -y
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (name)
-           op: (qualsymbol)
-           rhs: (name))))
+           (name)
+           (qualsymbol)
+           (name))))
 
 ===
 neg binds after apply
@@ -139,9 +139,9 @@ def a = - x y
   (val_bind
     bindto: (name)
     val: (neg
-           negated: (apply
-                      func: (name)
-                      args: (name)))))
+           (apply
+             (name)
+             (name)))))
 
 ===
 neg binds before mul
@@ -155,10 +155,10 @@ def a = -x * y
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (neg
-                  negated: (name))
-           op: (qualsymbol)
-           rhs: (name))))
+           (neg
+             (name))
+           (qualsymbol)
+           (name))))
 
 ===
 if works
@@ -172,12 +172,12 @@ def x = if a then b else c + d
   (val_bind
     bindto: (name)
     val: (if
-           cond: (name)
-           then: (name)
-           else: (binary
-                   lhs: (name)
-                   op: (qualsymbol)
-                   rhs: (name)))))
+           (name)
+           (name)
+           (binary
+             (name)
+             (qualsymbol)
+             (name)))))
 
 ===
 qualified symbols parse correctly
@@ -191,6 +191,6 @@ def x = x a.b.c.+ y
   (val_bind
     bindto: (name)
     val: (binary
-           lhs: (name)
-           op: (qualsymbol)
-           rhs: (name))))
+           (name)
+           (qualsymbol)
+           (name))))
